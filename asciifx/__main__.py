@@ -1,8 +1,21 @@
-import konsole
+#!/usr/bin/env python3
+"""
+The main(argv) function for asciifx.
+
+Usage::
+
+    python -m asciifx --help
+    asciifx --help
+    python ./__main__.py --help
+
+"""
+import sys
 
 from argparse import ArgumentParser
 from datetime import datetime
 from pathlib import Path
+
+import konsole
 
 from .animator import InvalidPragma
 from .perform import perform
@@ -104,5 +117,4 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
-    import sys
-    main(argv=sys.argv)
+    sys.exit(main(argv=sys.argv[1:]))
