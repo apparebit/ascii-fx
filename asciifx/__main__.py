@@ -10,7 +10,7 @@ from .perform import perform
 
 def create_parser() -> ArgumentParser:
     parser = ArgumentParser(
-        prog="ascii-fx",
+        prog="asciifx",
         description="Turn a Python script into a simulated interactive session. The "
         "resulting asciicast is written to the current working directory by default.",
     )
@@ -54,16 +54,16 @@ def create_parser() -> ArgumentParser:
     return parser
 
 
-def main() -> None:
+def main(argv=None) -> int:
     parser = create_parser()
-    options = parser.parse_args()
+    options = parser.parse_args(argv)
 
     if options.verbose:
         konsole.config(level=konsole.DEBUG)
 
     if not options.title:
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        options.title = f'Created by ascii-fx on {now} from "{options.input}"'
+        options.title = f'Created by asciifx on {now} from "{options.input}"'
 
     try:
         input_path = Path(options.input).resolve()
@@ -100,6 +100,9 @@ def main() -> None:
             effective_height,
             output_path,
         )
+    return 0
 
 
-main()
+if __name__ == "__main__":
+    import sys
+    main(argv=sys.argv)
